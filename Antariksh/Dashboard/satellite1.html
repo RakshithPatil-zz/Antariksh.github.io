@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
+    <link rel="icon" type="image/png" href="../assets/img/favicon.png">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <title>Admin</title>
+    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
+    <!--     Fonts and icons     -->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
+    <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
+    <!-- CSS Files -->
+    <link href="assets/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="assets/css/now-ui-dashboard.css?v=1.0.1" rel="stylesheet" />
+    <!-- CSS Just for demo purpose, don't include it in your project -->
+    <link href="assets/demo/demo.css" rel="stylesheet" />
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
+    <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></script>
+    <link rel="stylesheet" href="http://twitter.github.com/bootstrap/1.3.0/bootstrap.min.css" />
+    <script src="assets/js/gmaps.js"></script>
+    <script src="assets/js/gmaps.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="assets/css/examples.css" />
+    <script type="text/javascript">
+    var map,latitude = 25, longitude = 25,name;
+    $(document).ready(function(){
+
+    /* Details */
+    function details(){
+    $.getJSON('https://www.n2yo.com/rest/v1/satellite/positions/43241/41.702/-76.014/0/1/&apiKey=T5D2SC-E7K4YC-XMAG9W-3SDT', function(data) {
+                  name = data.info.satname;
+                  transactionscount = data.info.transactionscount;
+                  latitude = data.positions[0].satlatitude;
+                  longitude = data.positions[0].satlongitude;
+                  altitude = data.positions[0].sataltitude;
+                  elevation = data.positions[0].elevation;
+                  ra = data.positions[0].ra;
+                  dec = data.positions[0].dec;
+                  timestamp = data.positions[0].timestamp;
+                  $('#stage').html('<p><h3>INFO:</h5><h4>Satellite Name:' + data.info.satname + '</p>');
+                  $('#stage').append('<p><h4>Satellite id : ' + data.info.satid + '</p>');
+                  $('#stage').append('<p><h4>Transactions-Count: ' +transactionscount+ '</p><br>');
+                  $('#stage').append('<p><h3>POSITION:</h3><h4>Latitude : ' +latitude+ '</p>');
+                  $('#stage').append('<p><h4>longitude : ' +longitude+ '</p>');
+                  $('#stage').append('<p><h4>Altitude : ' +altitude+ '</p>');
+                  $('#stage').append('<p><h4>Elevation : ' +elevation+ '</p>');
+                  $('#stage').append('<p><h4>Ra : ' +ra+ '</p>');
+                  $('#stage').append('<p><h4>Dec : ' +dec+ '</p>');
+                  $('#stage').append('<p><h4>Timestamp : ' +timestamp+ '</p>');
+                    map = new GMaps({
+                    el: '#map',
+                    lat: latitude,
+                    lng: longitude,
+                    zoom: 1,
+                    zoomControl: true,
+                    zoomControlOpt: {
+                    style : 'SMALL',
+                    position: 'TOP_LEFT'
+                    }
+                  });
+                  map.addMarker({
+                  lat: latitude,
+                  lng: longitude,
+                  title: name,
+                  click: function(e){
+                  alert('You clicked in this marker');
+                  }
+}); 
+                });
+    }
+    details();
+    /* Map 
+      map = new GMaps({
+        el: '#map',
+        lat: latitude,
+        lng: longitude,
+        zoomControl : true,
+        zoomControlOpt: {
+            style : 'SMALL',
+            position: 'TOP_LEFT'
+        },
+        panControl : false,
+        streetViewControl : false,
+        mapTypeControl: false,
+        overviewMapControl: false
+      });
+      */
+    });
+  </script>
+  <style>
+.dropbtn {
+    background-color: #3498DB;
+    color: white;
+    padding: 16px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+}
+
+.dropbtn:hover, .dropbtn:focus {
+    background-color: #2980B9;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f1f1f1;
+    min-width: 160px;
+    overflow: auto;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown a:hover {background-color: #ddd}
+
+.show {display:block;}
+</style>
+</head>
+
+<body class="">
+    <div class="wrapper ">
+        <div class="sidebar" data-color="blue">
+            <!--
+        Tip 1: You can change the color of the sidebar using: data-color="blue | green | orange | red | yellow"
+    -->
+            <div class="logo">
+                <a href="#" class="simple-text logo-mini">
+                    ->
+                </a>
+                <a href="#" class="simple-text logo-normal">
+                    Admin
+                </a>
+            </div>
+            <div class="sidebar-wrapper">
+                <ul class="nav">
+                    <li>
+                        <li class="active">
+                        <a href="dashboard.html">
+                            <i class="now-ui-icons design_app"></i>
+                            <p>Dashboard</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="professional.html">
+                            <i class="now-ui-icons education_atom"></i>
+                            <p>Professional details</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="map.html">
+                            <i class="now-ui-icons location_map-big"></i>
+                            <p>Geo Satellite </p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="personal.html">
+                            <i class="now-ui-icons ui-1_bell-53"></i>
+                            <p>Personal Details</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="user.html">
+                            <i class="now-ui-icons users_single-02"></i>
+                            <p>User Profile</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="Analysis.html">
+                            <i class="now-ui-icons design_bullet-list-67"></i>
+                            <p>Analysis</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="Satellites.html">
+                            <i class="now-ui-icons text_caps-small"></i>
+                            <p>Satellites</p>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="main-panel">
+            <!-- Navbar -->
+            <nav class="navbar navbar-expand-lg navbar-transparent  navbar-absolute bg-primary fixed-top">
+                <div class="container-fluid">
+                    <div class="navbar-wrapper">
+                        <div class="navbar-toggle">
+                            <button type="button" class="navbar-toggler">
+                                <span class="navbar-toggler-bar bar1"></span>
+                                <span class="navbar-toggler-bar bar2"></span>
+                                <span class="navbar-toggler-bar bar3"></span>
+                            </button>
+                        </div>
+                        <a class="navbar-brand" href="#pablo">Dashboard</a>
+                    </div>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-bar navbar-kebab"></span>
+                        <span class="navbar-toggler-bar navbar-kebab"></span>
+                        <span class="navbar-toggler-bar navbar-kebab"></span>
+                    </button>
+                    <div class="collapse navbar-collapse justify-content-end" id="navigation">
+                        
+                        <ul class="navbar-nav">
+                            <li class="nav-item">
+                                <a class="nav-link" href="#pablo">Logout
+                                    <i class="now-ui-icons users_single-02"></i>
+                                    <p>
+                                        <span class="d-lg-none d-md-block">Account</span>
+                                    </p>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+            <!-- End Navbar -->
+            <div class="panel-header panel-header-lg">
+                <canvas id="bigDashboardChart"></canvas>
+            </div>
+            <div class="content">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="card card-chart">
+                            <div class="card-header">
+                                <h1>Satellite 1 details</h1>
+                            </div>
+                            <div class="dropdown">
+                            <button onclick="myFunction()" class="dropbtn">Satellites</button>
+                             <div id="myDropdown" class="dropdown-content">
+                                <a href="maps1.html">Satellite1</a>
+                                <a href="maps2.html">Satellite2</a>
+                                <a href="maps3.html">Satellite3</a>
+                                <a href="maps4.html">Satellite4</a>
+                                <a href="maps5.html">Satellite5</a>
+                                <a href="maps6.html">Satellite6</a>
+                                <a href="maps7.html">Satellite7</a>
+                                <a href="maps8.html">Satellite8</a>
+                            </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-4">
+                                    <div class="card-header" id="stage">
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="card-header" id="stage1">
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="card-header" id="stage2">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="card card-tasks">
+                      <div class="card-header">
+                        <h5 class="card-category"></h5>
+                        <h3 class="card-title">Location</h3>
+                      </div>
+                      <div class="card-body">
+                        <div class="table-full-width table-responsive" id="map">
+                          
+                        </div>
+                      </div>
+                  </div>
+                  </div>
+                </div>
+            </div>
+            <footer class="footer">
+                <div class="container-fluid">
+                    <nav>
+                        <ul>
+                            <li>
+                                <a href="#">
+                                    ...
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    ...
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    ...
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                    <div class="copyright">
+                        &copy;
+                        <script>
+                            document.write(new Date().getFullYear())
+                        </script>, Designed by
+                        <a href="#" target="_blank">ME</a>. Coded by
+                        <a href="#" target="_blank">ME</a>.
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </div>
+</body>
+<!--   Core JS Files   -->
+<script src="assets/js/core/jquery.min.js"></script>
+<script src="assets/js/core/popper.min.js"></script>
+<script src="assets/js/core/bootstrap.min.js"></script>
+<script src="assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
+<!--  Google Maps Plugin    -->
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDn0pUQuiewHtGtX3R0gkF-5iCK5hYFBTc"></script>
+<!-- Chart JS -->
+<script src="assets/js/plugins/chartjs.min.js"></script>
+<!--  Notifications Plugin    -->
+<script src="assets/js/plugins/bootstrap-notify.js"></script>
+<!-- Control Center for Now Ui Dashboard: parallax effects, scripts for the example pages etc -->
+<script src="assets/js/now-ui-dashboard.js?v=1.0.1"></script>
+<!-- Now Ui Dashboard DEMO methods, don't include it in your project! -->
+
+<script>
+/* When the user clicks on the button, 
+toggle between hiding and showing the dropdown content */
+function myFunction() {
+    document.getElementById("myDropdown").classList.toggle("show");
+}
+
+// Close the dropdown if the user clicks outside of it
+window.onclick = function(event) {
+  if (!event.target.matches('.dropbtn')) {
+
+    var dropdowns = document.getElementsByClassName("dropdown-content");
+    var i;
+    for (i = 0; i < dropdowns.length; i++) {
+      var openDropdown = dropdowns[i];
+      if (openDropdown.classList.contains('show')) {
+        openDropdown.classList.remove('show');
+      }
+    }
+  }
+}
+</script>
+</html>
